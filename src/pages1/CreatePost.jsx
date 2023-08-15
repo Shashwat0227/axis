@@ -82,7 +82,7 @@ const CreatePost = () => {
   };
   const saveJob = async () => {
     await savePost(data);
-    navigate(routhPath.Cvrank);
+    navigate(routhPath.post);
   };
   return (
     <>
