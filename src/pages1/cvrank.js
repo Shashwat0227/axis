@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Document, Page } from 'react-pdf';
 import Header from "../components/Header.jsx";
+import { Document, Page } from 'react-pdf';
 import { Box, Typography, styled, TextField, Button, Slider, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
 import { routhPath } from "../routes1/routes";
 import { useNavigate } from "react-router-dom";
@@ -23,24 +23,31 @@ const FormWrapper = styled(Box)({
     },
 });
 
+
 const defaultObj = {
     rating: "",
     smart_recruit: false,
     suggestions: false,
 };
 
+
+
+
 function CV() {
     
     const [data, setData] = useState(defaultObj);
     const [pdfResponse, setPdfResponse] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     
     let pageNumber = 1;
     const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('');
-                const res = await response.data();
+                const response = await fetch('/static/Sridhar_Resume.pdf');
+                const res = await response.data;
+                console.log(res);
+                setIsLoading(true);
                 setPdfResponse(res);
             } catch (error) {
                 console.log(error);
@@ -48,7 +55,16 @@ function CV() {
         };
         fetchData();
     }, []);
-    
+    if(!isLoading){
+        return (
+            <>
+              <Header />
+              <Component>
+                <h2>Loading.....</h2>
+              </Component>    
+            </>
+        );
+    }    
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
@@ -57,15 +73,17 @@ function CV() {
         await saveResponse(data);
         navigate(routhPath.home);
     };
-
     return (
         <>
           <Header />
           <Component>
             <Component>
-              <Document file={pdfResponse}>
-                <Page pageNumber={pageNumber}/>
+
+              <Document file={setPdfResponse}>
+                <Page pageNumber={1}>
+                </Page>
               </Document>
+
               <FormWrapper>
                 <p>Rate applicant out of 10</p>
                 <Slider
