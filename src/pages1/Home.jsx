@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import { Box, Typography, Button, styled } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { routhPath } from "../routes1/routes";
+import Footer from "../footer/footer";
 const Components = styled(Box)({
   display: "flex",
   height: "100vh",
@@ -50,6 +51,7 @@ const Home = () => {
           <img src={AnimatedImg} alt="home" style={{ width: 650 }} />
         </Box>
       </Components>
+      <Footer />
     </div>
   );
 };
