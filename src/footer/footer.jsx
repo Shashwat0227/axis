@@ -19,7 +19,11 @@ const Footer = () => {
           <h4>Know us More on</h4>
           <div
             className="Social media"
-            style={{ display: "flex", flexDirection: "row" }}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              mixBlendMode: "color-dodge",
+            }}
           >
             <p>
               <img
